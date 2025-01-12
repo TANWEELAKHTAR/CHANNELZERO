@@ -1,8 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import gsap from 'gsap'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 
 
 const HomePage = () => {
+    const textRef = useRef(null)
+    useEffect(() => {
+        const text = textRef.current.textContent
+        const words = text.split(" ")
+        textRef.current.innerHTML = words.map(word => `<span>${word}</span>`).join(" ")
+
+        gsap.from(textRef.current.children, {
+            opacity: 0,
+            y: 100,
+            duration: .2,
+            ease: 'power2.inOut',
+            stagger: 0.1,
+        })
+    }, [])
 
     const fontArr = ['font1', 'font2', 'font3', 'font4', 'font5', 'font6', 'font7', 'font8', 'font9']
     const [font, setFont] = useState(fontArr[0]);
@@ -32,7 +47,7 @@ const HomePage = () => {
             <Link className='text-2xl font-semibold text-center'>Our Story</Link>
         </div>
         <div className="py-10 px-6 w-full md:max-w-3xl flex flex-col items-start justify-center mx-auto">
-            <p className='text-xl'>Channel zero is an app for students, dreamers, achievers, can get internships & freelance gigs. Here everybody has chance to work upon all domain just start, grow & we will provide you the platform & now for recruiters, hey get the best candidate for your gig from all the colleges, students, great minds. Join the waitlist now.</p>
+            <p ref={textRef} className='text-xl'>Channel zero is an app for students, dreamers, achievers, can get internships & freelance gigs. Here everybody has chance to work upon all domain just start, grow & we will provide you the platform & now for recruiters, hey get the best candidate for your gig from all the colleges, students, great minds. Join the waitlist now.</p>
             <p className='text-xl mt-2'>- Buiding with love, Team channel zero :)</p>
             <button onClick={waitlistHandeler} className='px-4 py-2 mt-6 border text-xl rounded-xl bg-white text-black font-semibold'>Join waitlist</button>
         </div>
