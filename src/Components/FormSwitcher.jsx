@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import 'remixicon/fonts/remixicon.css'
 
 const FormSwitcher = ({ closeForm }) => {
   const [isRecruiter, setIsRecruiter] = useState(false);
